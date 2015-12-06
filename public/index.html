@@ -1,0 +1,18 @@
+<!DOCTYPE html><html>
+  <head lang="en">
+    <meta charset="utf-8">
+    <title>Akka HTTP Application Template</title>
+    <script>
+     var ws = new WebSocket("ws://localhost:8081/server-events");
+     ws.message = function(evt) {
+       console.log(evt);
+     };
+    </script>
+  </head>
+  <body>
+    <h1>Akk HTTP Application Template</h1>
+    <div id="app">
+      
+    </div>
+  </body>
+</html>
