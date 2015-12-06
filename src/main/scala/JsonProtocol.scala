@@ -19,11 +19,16 @@ trait JsonProtocol extends DefaultJsonProtocol {
 
   implicit val fooUpdatedFormat = jsonFormat1(ServerEvent.FooUpdated)
   implicit val fooDeletedFormat = jsonFormat1(ServerEvent.FooDeleted)
+  implicit val serverStatusUpdate = jsonFormat4(ServerEvent.ServerStatusUpdate)
   implicit object ServerEventWriter extends RootJsonWriter[ServerEvent] {
     import ServerEvent._
+    def packType[A <: ServerEvent : JsonWriter](a: A): JsValue =
+      a.toJson.pack("eventType" -> a.eventType)
+
     override def write(evt: ServerEvent): JsValue = evt match {
-      case e: FooUpdated => e.toJson.pack("eventType" -> e.eventType.toJson)
-      case e: FooDeleted => e.toJson.pack("eventType" -> e.eventType.toJson)
+      case e: FooUpdated => packType(e)
+      case e: FooDeleted => packType(e)
+      case e: ServerStatusUpdate => packType(e)
     }
   }
 }
