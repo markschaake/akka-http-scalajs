@@ -2,7 +2,33 @@
 
 Template project for Akka HTTP server and ScalaJS web client using scalajs-react and scalacss.
 
-## Highlights
+## Running the Application
+
+The template is currently set up for a "dev" process. Deployed application build setup is a TODO. To run the application:
+
+1. clone the repository
+2. start `sbt` in the repository root directory
+3. build the webclient:
+
+   ```shell
+   > client/fastOptJS
+   ```
+
+4. start the server:
+
+   ```shell
+   > server/reStart
+   ```
+
+5. navigate to the application at http://localhost:8081
+
+You can make changes to webclient code and run `> client/fastOptJS` while the server is running and the changes will get picked up. You can leverage tilde-triggered task running to automatically re-generate javascript on source changes:
+
+```shell
+> ~client/fastOptJS
+```
+
+## Template Highlights
 
 - All Scala (no NPM, no Javascript, no LESS)
 - `upickle` for JSON serialization provides:
