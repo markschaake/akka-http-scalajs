@@ -6,7 +6,7 @@ trait ColorScheme { this: StyleSheet.Inline =>
   import dsl._
 
   object Colors {
-    val navBackground = Color("#ccc")
+    val navBackground = c"#ccc"
   }
 }
 
