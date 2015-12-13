@@ -35,19 +35,19 @@ object Styles extends BaseStyle {
 
   val nav = style(
     width(200.px),
-    backgroundColor(Colors.navBackground),
+    backgroundColor(colors.lightGray),
     unsafeChild("ul")(
       padding.`0`,
       margin.`0`,
       unsafeChild("li")(
         listStyleType := "none",
         padding(4.px, 6.px),
-        borderLeft(2.px, solid, Colors.navBackground),
-        borderRight(4.px, solid, Colors.navBackground),
+        borderLeft(2.px, solid, colors.lightGray),
+        borderRight(4.px, solid, colors.lightGray),
         &.hover(
           borderLeft(2.px, solid, black),
           borderRight(4.px, solid, black),
-          backgroundColor(Colors.navBackground)
+          backgroundColor(colors.lightGray)
         )
       )
     )
