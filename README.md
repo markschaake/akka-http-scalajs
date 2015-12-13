@@ -30,10 +30,12 @@ You can make changes to webclient code and run `> client/fastOptJS` while the se
 
 ## Template Highlights
 
-- All Scala (no NPM, no Javascript, no LESS)
+- Akka HTTP server
+- All Scala client-side code (ScalaJS + ScalaJS-React + ScalaCSS)
 - `upickle` for JSON serialization provides:
   - same JSON serailzation / deserialization method on client and server 
   - ability to use shared models
+- Websocket for server-sent events
   
 ## SBT Project Layout
 
