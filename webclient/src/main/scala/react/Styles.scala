@@ -33,6 +33,12 @@ object Styles extends BaseStyle {
     height(60.px)
   )
 
+  val selectedNav = mixin(
+    borderLeft(2.px, solid, black),
+    borderRight(4.px, solid, black),
+    backgroundColor(colors.lightGray)
+  )
+
   val nav = style(
     width(200.px),
     backgroundColor(colors.lightGray),
@@ -58,7 +64,8 @@ object Styles extends BaseStyle {
             color.white
           )
         )
-      )
+      ),
+      unsafeChild("li.active")(selectedNav)
     )
   )
 

@@ -29,14 +29,22 @@ object Routes {
       .renderWith(layout)
   }
 
+  def navItem(ctl: RouterCtl[Page], r: Resolution[Page], page: Page, text: String) =
+    <.li(
+      ctl.link(page)(text),
+      ^.classSet(
+        "active" -> (page == r.page)
+      )
+    )
+
   def layout(ctl: RouterCtl[Page], r: Resolution[Page]) =
     <.div(Styles.app,
       <.header(Styles.header, <.h1("This is a header")),
       <.div(Styles.main,
         <.nav(Styles.nav,
           <.ul(
-            <.li(ctl.link(Page.Todos)("To Dos"), ^.cls := "active"),
-            <.li(ctl.link(Page.ServerEvents)("Server Events"))
+            navItem(ctl, r, Page.Todos, "To Dos"),
+            navItem(ctl, r, Page.ServerEvents, "Server Events")
           )
         ),
         <.div(Styles.content, r.render())
