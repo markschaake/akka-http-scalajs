@@ -7,5 +7,6 @@ class StyleTheme(implicit r: mutable.Register) extends StyleSheet.Inline()(r) {
   import dsl._
   object Colors {
     val lightGray = c"#ccc"
+    val darkGray = c"#333"
   }
 }

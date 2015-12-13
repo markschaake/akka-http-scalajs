@@ -41,13 +41,22 @@ object Styles extends BaseStyle {
       margin.`0`,
       unsafeChild("li")(
         listStyleType := "none",
-        padding(4.px, 6.px),
         borderLeft(2.px, solid, colors.lightGray),
         borderRight(4.px, solid, colors.lightGray),
         &.hover(
           borderLeft(2.px, solid, black),
           borderRight(4.px, solid, black),
           backgroundColor(colors.lightGray)
+        ),
+        unsafeChild("a")(
+          padding(4.px, 6.px),
+          display.block,
+          textDecoration := "none",
+          color(colors.darkGray),
+          &.hover(
+            backgroundColor(colors.darkGray),
+            color.white
+          )
         )
       )
     )
