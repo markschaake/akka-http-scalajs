@@ -20,6 +20,6 @@ The SBT project consists of a `shared` `crossProject` that is cross built for bo
 - `Manager` actor that is top-level supervisor for the application
 - `ServerEventPublisher` that handles publishing ServerEvents to websocket connections
 
-## `webclient` project design
+### `webclient` project design
 
 TODO
