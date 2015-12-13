@@ -1,5 +1,5 @@
 # akka-http-server-events
-Template project for Akka HTTP server with server-sent events via websockets
+Template project for Akka HTTP server with server-sent events via websockets.
 
 ## Project Architecture
 
@@ -10,3 +10,5 @@ Template project for Akka HTTP server with server-sent events via websockets
 - Manager actor that is top-level supervisor for the application
 
 - ServerEventPublisher that handles publishing ServerEvents to websocket connections
+
+- ScalaJS / ScalaCSS / scalajs-react frontend

@@ -1,16 +1,16 @@
 package example.akkwebsockets
 
-sealed abstract class ServerEvent(val eventType: String)
+sealed trait ServerEvent
 
 object ServerEvent {
-  case class FooUpdated(foo: String) extends ServerEvent("FooUpdated")
-  case class FooDeleted(foo: String) extends ServerEvent("FooDeleted")
+  case class FooUpdated(foo: String) extends ServerEvent
+  case class FooDeleted(foo: String) extends ServerEvent
   case class ServerStatusUpdate(
     processors: Int,
     freeMemory: Long,
     maxMemory: Long,
     totalMemory: Long
-  ) extends ServerEvent("ServerStatusUpdate")
+  ) extends ServerEvent
 
   object ServerStatusUpdate {
     def now = {
