@@ -1,6 +1,9 @@
 package example.akkwebsockets.webclient.serverevents
 
+import example.akkwebsockets.webclient.BaseStyle
+
 import example.akkwebsockets.ServerEvent
+import example.akkwebsockets.ServerEvent._
 import japgolly.scalajs.react.BackendScope
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactComponentB
@@ -10,6 +13,21 @@ import org.scalajs.dom.WebSocket
 import org.scalajs.dom.window
 import rx._
 import upickle.default._
+
+import scalacss.ScalaCssReact._
+import scalacss.Defaults._
+
+object ServerEventListStyle extends BaseStyle {
+  import dsl._
+
+  val serverEventList = style(
+    addClassName("server-event-list")
+  )
+
+  val serverStatusUpdate = style(
+    backgroundColor.yellow
+  )
+}
 
 object ServerEventsStore {
   private val MaxEventsRetained = 20
@@ -34,17 +52,20 @@ object ServerEventsStore {
 }
 
 class ServerEventsListBackend(scope: BackendScope[Unit, Vector[ServerEvent]]) {
+  import ServerEventsList._
+
   Obs(ServerEventsStore.events) {
     if (scope.isMounted) {
       scope.setState(ServerEventsStore.events()).runNow()
     }
   }
   def render(state: Vector[ServerEvent]) = {
-    <.div(
+    <.div(ServerEventListStyle.serverEventList,
       <.h2("Server Events"),
       <.ul(
-        state.zipWithIndex map { case (e, i) =>
-          <.li(^.key := i.toString, e.toString)
+        state.zipWithIndex map {
+          case (e: ServerStatusUpdate, i) => ServerStatusUpdateItem.withKey(i.toString)(e)
+          case (e, i) => ServerEventItem.withKey(i.toString)(e)
         }
       )
     )
@@ -57,4 +78,14 @@ object ServerEventsList {
     .initialState(ServerEventsStore.events())
     .renderBackend[ServerEventsListBackend]
     .buildU
+
+  val ServerStatusUpdateItem = ReactComponentB[ServerStatusUpdate]("ServerStatusUpdate")
+    .render(update =>
+      <.li(ServerEventListStyle.serverStatusUpdate, ^.cls := "server-status-update", update.props.toString)
+    )
+    .build
+
+  val ServerEventItem = ReactComponentB[ServerEvent]("ServerEvent")
+    .render(evt => <.li(evt.props.toString))
+    .build
 }
