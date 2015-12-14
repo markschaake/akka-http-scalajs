@@ -30,7 +30,8 @@ object Styles extends BaseStyle {
   )
 
   val footer = style(
-    height(60.px)
+    height(60.px),
+    backgroundColor.gray
   )
 
   val selectedNav = mixin(
@@ -40,7 +41,7 @@ object Styles extends BaseStyle {
   )
 
   val nav = style(
-    width(200.px),
+    width(150.px),
     backgroundColor(colors.lightGray),
     unsafeChild("ul")(
       padding.`0`,
@@ -70,6 +71,7 @@ object Styles extends BaseStyle {
   )
 
   val content = style(
-    flexGrow(1)
+    flexGrow(1),
+    padding(10.px)
   )
 }
