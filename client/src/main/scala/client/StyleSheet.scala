@@ -1,4 +1,4 @@
-package example.akkwebsockets.webclient
+package template.client
 
 import scalacss.Defaults._
 import scalacss.mutable

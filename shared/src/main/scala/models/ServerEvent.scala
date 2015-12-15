@@ -1,4 +1,4 @@
-package example.akkwebsockets
+package template.models
 
 sealed trait ServerEvent
 

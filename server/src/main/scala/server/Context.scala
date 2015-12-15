@@ -1,4 +1,4 @@
-package example.akkwebsockets
+package template.server
 
 import akka.actor._
 import akka.stream.ActorMaterializer

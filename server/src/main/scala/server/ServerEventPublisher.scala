@@ -1,4 +1,6 @@
-package example.akkwebsockets
+package template.server
+
+import template.models.ServerEvent
 
 import akka.actor._
 import akka.stream.actor.ActorPublisher

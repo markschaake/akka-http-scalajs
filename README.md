@@ -8,7 +8,7 @@ The template is currently set up for a "dev" process. Deployed application build
 
 1. clone the repository
 2. start `sbt` in the repository root directory
-3. build the webclient:
+3. build the client:
 
    ```shell
    > client/fastOptJS
@@ -22,7 +22,7 @@ The template is currently set up for a "dev" process. Deployed application build
 
 5. navigate to the application at http://localhost:8081
 
-You can make changes to webclient code and run `> client/fastOptJS` while the server is running and the changes will get picked up. You can leverage tilde-triggered task running to automatically re-generate javascript on source changes:
+You can make changes to client code and run `> client/fastOptJS` while the server is running and the changes will get picked up. You can leverage tilde-triggered task running to automatically re-generate javascript on source changes:
 
 ```shell
 > ~client/fastOptJS
@@ -39,7 +39,7 @@ You can make changes to webclient code and run `> client/fastOptJS` while the se
   
 ## SBT Project Layout
 
-The SBT project consists of a `shared` `crossProject` that is cross built for both JS and JVM and is dependend upon by both `server` and `webclient`. Common models should be defined in `shared` so they can be used on both client and server.
+The SBT project consists of a `shared` `crossProject` that is cross built for both JS and JVM and is dependend upon by both `server` and `client`. Common models should be defined in `shared` so they can be used on both client and server.
 
 ### `server` project design
 
@@ -48,6 +48,6 @@ The SBT project consists of a `shared` `crossProject` that is cross built for bo
 - `Manager` actor that is top-level supervisor for the application
 - `ServerEventPublisher` that handles publishing ServerEvents to websocket connections
 
-### `webclient` project design
+### `client` project design
 
 TODO

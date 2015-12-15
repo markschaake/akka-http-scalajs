@@ -1,4 +1,4 @@
-package example.akkwebsockets.webclient
+package template.client
 
 import japgolly.scalajs.react.ReactElement
 import japgolly.scalajs.react.extra.router._
@@ -58,8 +58,8 @@ object LayoutStyle extends StyleSheet {
         borderLeft(2.px, solid, colors.lightGray),
         borderRight(4.px, solid, colors.lightGray),
         &.hover(
-          borderLeft(2.px, solid, black),
-          borderRight(4.px, solid, black),
+          borderLeft(2.px, solid, colors.darkGray),
+          borderRight(4.px, solid, colors.darkGray),
           backgroundColor(colors.lightGray)
         ),
         unsafeChild("a")(
@@ -79,7 +79,8 @@ object LayoutStyle extends StyleSheet {
 
   val content = style(
     flexGrow(1),
-    padding(10.px)
+    padding(10.px),
+    overflow.scroll
   )
 }
 
@@ -93,16 +94,17 @@ object Layout extends ((RouterCtl[Page], Resolution[Page]) => ReactElement) {
 
   override def apply(ctl: RouterCtl[Page], r: Resolution[Page]): ReactElement =
     <.div(LayoutStyle.app,
-      <.header(LayoutStyle.header, <.h1("This is a header")),
+      <.header(LayoutStyle.header, <.h1("Akka Http ScalaJS Template")),
       <.div(LayoutStyle.main,
         <.nav(LayoutStyle.nav,
           <.ul(
             navItem(ctl, r, Page.Todos, "To Dos"),
-            navItem(ctl, r, Page.ServerEvents, "Server Events")
+            navItem(ctl, r, Page.ServerEvents, "Server Events"),
+            navItem(ctl, r, Page.Foos, "Foos")
           )
         ),
         <.div(LayoutStyle.content, r.render())
       ),
-      <.footer(LayoutStyle.footer, <.p("Footer content here"))
+      <.footer(LayoutStyle.footer, <.p("Template footer"))
     )
 }

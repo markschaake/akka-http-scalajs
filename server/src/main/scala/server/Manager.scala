@@ -1,4 +1,6 @@
-package example.akkwebsockets
+package template.server
+
+import template.models.ServerEvent
 
 import akka.actor._
 
@@ -18,11 +20,11 @@ class Manager extends Actor with ActorLogging {
   override def preStart() {
     import scala.concurrent.duration._
     import context.dispatcher
-    context.system.scheduler.schedule(1.second, 10.second) {
+    context.system.scheduler.schedule(1.second, 5.second) {
       if (eventCount % 2 == 0) {
-        self ! ServerEvent.FooDeleted(s"foo: $eventCount")
+        self ! ServerEvent.FooUpdated(s"${eventCount}")
       } else {
-        self ! ServerEvent.FooUpdated(s"foo: ${eventCount - 1}")
+        self ! ServerEvent.FooDeleted(s"${eventCount - 1}")
       }
       eventCount += 1
     }
@@ -37,14 +39,9 @@ class Manager extends Actor with ActorLogging {
     case Manager.Subscribe =>
       subscribers = subscribers + sender
       context.watch(sender)
-
-    case Terminated(ref) =>
-      subscribers = subscribers.filterNot(_ == ref)
-
+    case Terminated(ref) => subscribers = subscribers.filterNot(_ == ref)
     case GetSystemStatus => publish(ServerEvent.ServerStatusUpdate.now)
-
     case evt: ServerEvent => publish(evt)
-
     case any => sender ! any
   }
 }

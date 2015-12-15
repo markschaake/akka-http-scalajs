@@ -1,7 +1,7 @@
-package example.akkwebsockets.webclient
+package template.client
 
-import example.akkwebsockets.webclient.serverevents.ServerEventListStyle
-import example.akkwebsockets.webclient.todos.TodoListStyle
+import template.client.serverevents.ServerEventListStyle
+import template.client.todos.TodoListStyle
 import org.scalajs.dom.window
 
 import scala.scalajs.js.JSApp

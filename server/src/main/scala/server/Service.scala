@@ -1,4 +1,6 @@
-package example.akkwebsockets
+package template.server
+
+import template.models.ServerEvent
 
 import akka.actor.ActorRef
 import akka.http.scaladsl.model.StatusCodes
@@ -29,7 +31,7 @@ class Service(manager: ActorRef) {
     } ~
     pathEndOrSingleSlash(getFromFile("../index-dev.html")) ~
     pathPrefix("js") {
-      getFromDirectory("../webclient/target/scala-2.11")
+      getFromDirectory("../client/target/scala-2.11")
     }
   }
 }

@@ -1,6 +1,6 @@
-package example.akkwebsockets.webclient.todos
+package template.client.todos
 
-import example.akkwebsockets.webclient.StyleSheet
+import template.client.StyleSheet
 
 import japgolly.scalajs.react.Addons.ReactCssTransitionGroup
 import japgolly.scalajs.react.BackendScope

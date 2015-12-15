@@ -9,4 +9,4 @@ libraryDependencies ++= Seq(
   "com.lihaoyi" %% "upickle" % "0.3.6"
 )
 
-mainClass in reStart := Some("example.akkwebsockets.Main")
+mainClass in reStart := Some("template.server.Main")
