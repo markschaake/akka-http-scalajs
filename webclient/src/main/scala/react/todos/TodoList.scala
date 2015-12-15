@@ -1,6 +1,6 @@
 package example.akkwebsockets.webclient.todos
 
-import example.akkwebsockets.webclient.BaseStyle
+import example.akkwebsockets.webclient.StyleSheet
 
 import japgolly.scalajs.react.Addons.ReactCssTransitionGroup
 import japgolly.scalajs.react.BackendScope
@@ -11,7 +11,7 @@ import org.scalajs.dom.window
 import scalacss.ScalaCssReact._
 import scalacss.Defaults._
 
-object TodoListStyle extends BaseStyle {
+object TodoListStyle extends StyleSheet {
   import dsl._
 
   val todoList = style(

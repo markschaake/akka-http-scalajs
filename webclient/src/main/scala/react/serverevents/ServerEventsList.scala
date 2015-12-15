@@ -1,6 +1,6 @@
 package example.akkwebsockets.webclient.serverevents
 
-import example.akkwebsockets.webclient.BaseStyle
+import example.akkwebsockets.webclient.StyleSheet
 
 import example.akkwebsockets.ServerEvent
 import example.akkwebsockets.ServerEvent._
@@ -17,7 +17,7 @@ import upickle.default._
 import scalacss.ScalaCssReact._
 import scalacss.Defaults._
 
-object ServerEventListStyle extends BaseStyle {
+object ServerEventListStyle extends StyleSheet {
   import dsl._
 
   val serverEventList = style(

@@ -1,10 +1,16 @@
 package example.akkwebsockets.webclient
 
+import japgolly.scalajs.react.ReactElement
+import japgolly.scalajs.react.extra.router._
+import japgolly.scalajs.react.vdom.prefix_<^._
 import scalacss.Defaults._
+import scalacss.ScalaCssReact._
 
-object Styles extends BaseStyle {
+/** CSS for the main application layout */
+object LayoutStyle extends StyleSheet {
   import dsl._
 
+  /** Application wrapper div */
   val app = style(
     addClassName("app"),
     display.flex,
@@ -23,15 +29,16 @@ object Styles extends BaseStyle {
     )
   )
 
+  val footer = style(
+    height(60.px),
+    backgroundColor.gray
+  )
+
+  /** Main wraps nav and content */
   val main = style(
     flexGrow(1),
     display.flex,
     height(100.%%)
-  )
-
-  val footer = style(
-    height(60.px),
-    backgroundColor.gray
   )
 
   val selectedNav = mixin(
@@ -74,4 +81,28 @@ object Styles extends BaseStyle {
     flexGrow(1),
     padding(10.px)
   )
+}
+
+/** The main application layout that the router uses */
+object Layout extends ((RouterCtl[Page], Resolution[Page]) => ReactElement) {
+  private def navItem(ctl: RouterCtl[Page], r: Resolution[Page], page: Page, text: String) =
+    <.li(
+      ctl.link(page)(text),
+      ^.classSet("active" -> (page == r.page))
+    )
+
+  override def apply(ctl: RouterCtl[Page], r: Resolution[Page]): ReactElement =
+    <.div(LayoutStyle.app,
+      <.header(LayoutStyle.header, <.h1("This is a header")),
+      <.div(LayoutStyle.main,
+        <.nav(LayoutStyle.nav,
+          <.ul(
+            navItem(ctl, r, Page.Todos, "To Dos"),
+            navItem(ctl, r, Page.ServerEvents, "Server Events")
+          )
+        ),
+        <.div(LayoutStyle.content, r.render())
+      ),
+      <.footer(LayoutStyle.footer, <.p("Footer content here"))
+    )
 }
