@@ -10,7 +10,8 @@ object Main extends App {
   implicit val system = ActorSystem("dsm", config)
   implicit val materializer = ActorMaterializer()
   val appContext = ProdContext(system, materializer)
-  val service = new Service(appContext.manager)
+  val service = new Service(appContext.manager, appContext.environment)
+  system.log.info(s"Service environment: ${appContext.environment}")
 
   import system.dispatcher
 

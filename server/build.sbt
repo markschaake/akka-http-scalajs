@@ -5,8 +5,7 @@ def akkaModule(id: String) = "com.typesafe.akka" %% s"akka-$id" % akkaVersion
 libraryDependencies ++= Seq(
   akkaModule("actor"),
   akkaModule("testkit") % "test",
-  "com.typesafe.akka" % "akka-http-experimental_2.11" % "2.0-M2",
-  "com.lihaoyi" %% "upickle" % "0.3.6"
+  "com.typesafe.akka" % "akka-http-experimental_2.11" % "2.0-M2"
 )
 
 mainClass in reStart := Some("template.server.Main")

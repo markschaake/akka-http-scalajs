@@ -4,7 +4,11 @@ version := "1.0"
 
 scalaVersion := "2.11.7"
 
-lazy val shared = (crossProject.crossType(CrossType.Pure) in file ("shared"))
+lazy val shared = (crossProject.crossType(CrossType.Pure) in file ("shared")).settings(
+  libraryDependencies ++= Seq(
+    "com.lihaoyi" %%% "upickle" % "0.3.6"
+  )
+)
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
 lazy val client = project.dependsOn(sharedJs)
@@ -17,7 +21,7 @@ jsResources := {
   // this sets up a dependency on fastOptJS. For production, we'd want to run
   // fullOptJs instead
   val fastOpt = (fastOptJS in (client, Compile)).value.data
-  (crossTarget in (client, Compile)).value
+  val dir = (crossTarget in (client, Compile)).value
   dir.listFiles.filter(f => f.getName.endsWith(".js") || f.getName.endsWith(".js.map"))
 }
 
