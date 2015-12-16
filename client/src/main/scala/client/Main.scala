@@ -1,6 +1,7 @@
 package template.client
 
 import template.client.serverevents.ServerEventListStyle
+import template.client.serverlogs.ServerLogStyle
 import template.client.todos.TodoListStyle
 import org.scalajs.dom.window
 
@@ -13,6 +14,7 @@ object Main extends JSApp {
     LayoutStyle.addToDocument()
     TodoListStyle.addToDocument()
     ServerEventListStyle.addToDocument()
+    ServerLogStyle.addToDocument()
     AppRouter() render window.document.getElementById("app")
   }
 }

@@ -7,8 +7,10 @@ import japgolly.scalajs.react.ReactElement
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.MessageEvent
 import rx._
+import scala.scalajs.js.Date
 import template.client.StyleSheet
 import template.client.WebsocketUtil
+import template.models.LogLevel
 import template.models.ServerLogMessage
 
 import scalacss.Defaults._
@@ -20,6 +22,42 @@ object ServerLogStyle extends StyleSheet {
   val serverLogStyle = style(
     addClassName("server-logs")
   )
+
+  private val errorColor = c"#ff0000"
+  private val warningColor = c"#fff76d"
+  private val infoColor = c"#aaf6ff"
+  private val debugColor = c"#ffb600"
+
+  private def colorForLevel(level: LogLevel) = level match {
+    case LogLevel.Error => errorColor
+    case LogLevel.Warn => warningColor
+    case LogLevel.Info => infoColor
+    case LogLevel.Debug => debugColor
+  }
+
+  private def mkLogMessage(level: LogLevel) = style(
+    marginTop(6.px),
+    unsafeChild(".level")(
+      width(50.px),
+      display.inlineBlock,
+      textAlign.center,
+      borderRadius(3.px),
+      backgroundColor(colorForLevel(level)),
+      marginRight(3.px),
+      padding(2.px)
+    ),
+    unsafeChild(".time")(
+      marginRight(3.px)
+    ),
+    unsafeChild(".message")(
+      wordBreak.breakAll,
+      fontStyle.italic,
+      (if (level == LogLevel.Error) fontWeight.bold else fontWeight.normal)
+    )
+  )
+  val levelStyles: Map[LogLevel, StyleA] = (Seq(LogLevel.Error, LogLevel.Warn, LogLevel.Info, LogLevel.Debug) map { level =>
+    level -> mkLogMessage(level)
+  }).toMap
 }
 
 object ServerLogStore {
@@ -59,8 +97,13 @@ object ServerLog {
 
   val LogItem = ReactComponentB[ServerLogMessage]("ServerLogMessage").render { callback =>
     val evt = callback.props
-    <.div(
-      <.span(evt.toString)
+    val date = new Date()
+    date.setMilliseconds(evt.timestamp.toInt)
+    //val style = ServerLogStyle.forLevel(evt.logLevel)
+    <.div(ServerLogStyle.levelStyles(evt.logLevel),
+      <.span(^.cls := "level", evt.logLevel.toString),
+      <.span(^.cls := "time", date.toLocaleTimeString()),
+      <.span(^.cls := "message", evt.msg)
     )
   }.build
 }

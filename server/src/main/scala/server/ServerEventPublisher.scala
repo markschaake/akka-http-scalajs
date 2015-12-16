@@ -12,6 +12,7 @@ object ServerEventPublisher {
 class ServerEventPublisher(manager: ActorRef) extends ActorPublisher[ServerEvent] with ActorLogging {
   override def preStart(): Unit = {
     manager ! Manager.Subscribe
+    log.debug("Server event publisher created")
   }
   override def receive: Receive = {
     case event: ServerEvent => onNext(event)

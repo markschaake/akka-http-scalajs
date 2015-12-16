@@ -27,9 +27,9 @@ class Manager extends Actor with ActorLogging {
         self ! ServerEvent.FooDeleted(s"${eventCount - 1}")
       }
       eventCount += 1
+      log.info("FooEvent published")
     }
     context.system.scheduler.schedule(1.seconds, 2.seconds) {
-      log.info("Getting system status")
       self ! GetSystemStatus
     }
   }

@@ -13,13 +13,16 @@ object LogEventPublisher {
 class LogEventPublisher extends ActorPublisher[ServerLogMessage] with ActorLogging {
   override def preStart(): Unit = {
     context.system.eventStream.subscribe(self, classOf[LogEvent])
+    log.debug("Log event publisher created")
   }
   override def receive: Receive = {
     case event: LogEvent =>
-      onNext(ServerLogMessage(
-        event.message.toString,
-        LogLevel(event.level.asInt),
-        event.timestamp
-      ))
+      if (totalDemand > 0) {
+        onNext(ServerLogMessage(
+          event.message.toString,
+          LogLevel(event.level.asInt),
+          event.timestamp
+        ))
+      }
   }
 }

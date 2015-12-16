@@ -49,6 +49,7 @@ object LayoutStyle extends StyleSheet {
 
   val nav = style(
     width(150.px),
+    minWidth(150.px),
     backgroundColor(colors.lightGray),
     unsafeChild("ul")(
       padding.`0`,
