@@ -8,24 +8,24 @@ The template is currently set up for a "dev" process. Deployed application build
 
 1. clone the repository
 2. start `sbt` in the repository root directory
-3. build the client:
-
-   ```shell
-   > client/fastOptJS
-   ```
-
-4. start the server:
+3. start the server:
 
    ```shell
    > server/reStart
    ```
 
-5. navigate to the application at http://localhost:8081
+4. navigate to the application at http://localhost:8081
 
-You can make changes to client code and run `> client/fastOptJS` while the server is running and the changes will get picked up. You can leverage tilde-triggered task running to automatically re-generate javascript on source changes:
+You can make changes to client code and run `> server/reStart` while the server is running and the changes will get picked up. You can leverage tilde-triggered task running to automatically re-start the server on source changes:
 
 ```shell
-> ~client/fastOptJS
+> ~server/reStart
+```
+
+**Note**: you can significantly speed up client build time if you have NodeJS (`npm` on `PATH`) by adding a `client/local.sbt` containing:
+
+```scala
+postLinkJSEnv in Global := NodeJSEnv().value
 ```
 
 ## Template Highlights

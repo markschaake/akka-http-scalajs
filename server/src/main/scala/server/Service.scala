@@ -29,9 +29,7 @@ class Service(manager: ActorRef) {
         complete("TODO")
       }
     } ~
-    pathEndOrSingleSlash(getFromFile("../index-dev.html")) ~
-    pathPrefix("js") {
-      getFromDirectory("../client/target/scala-2.11")
-    }
+    pathEndOrSingleSlash(getFromResource("index.html")) ~
+    getFromResourceDirectory("")
   }
 }

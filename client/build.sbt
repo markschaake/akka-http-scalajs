@@ -2,6 +2,13 @@ enablePlugins(ScalaJSPlugin)
 
 scalaJSStage in Global := FastOptStage
 
+// This uses local NodeJS install instead of Rhino for compilation.
+// This speeds up the client build, but sacrifices build portability.
+// For a real project, this should be a local setting that is not checked
+// into source control. I have this locally in client/local.sbt which is
+// gitignored.
+//postLinkJSEnv in Global := NodeJSEnv().value
+
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalacss" %%% "core" % "0.3.1",
   "com.github.japgolly.scalacss" %%% "ext-react" % "0.3.1",
