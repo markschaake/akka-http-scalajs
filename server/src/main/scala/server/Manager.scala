@@ -29,6 +29,7 @@ class Manager extends Actor with ActorLogging {
       eventCount += 1
     }
     context.system.scheduler.schedule(1.seconds, 2.seconds) {
+      log.info("Getting system status")
       self ! GetSystemStatus
     }
   }

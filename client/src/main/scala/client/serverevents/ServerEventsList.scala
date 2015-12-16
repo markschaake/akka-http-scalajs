@@ -12,6 +12,7 @@ import rx._
 import template.client.StyleSheet
 import template.models.ServerEvent
 import template.models.ServerEvent._
+import template.client.WebsocketUtil
 import upickle.default._
 
 import scalacss.Defaults._
@@ -65,12 +66,7 @@ object ServerEventsStore {
   /** The most recent server event */
   val lastEvent = Var[Option[ServerEvent]](None)
 
-  private val ws = {
-    val loc = window.location
-    val wsProtocol = if (loc.protocol == "http:") "ws:" else "wss:"
-    val wsUrl = s"${wsProtocol}//${loc.host}/server-events"
-    new WebSocket(url = wsUrl)
-  }
+  private val ws = WebsocketUtil.ws("server-events")
   ws.onmessage = { evt: MessageEvent =>
     val serverEvent = read[ServerEvent](evt.data.asInstanceOf[String])
     events() = (serverEvent +: events()).take(MaxEventsRetained)
