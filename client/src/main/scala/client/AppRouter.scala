@@ -1,6 +1,5 @@
 package template.client
 
-import template.client.todos.TodoList
 import template.client.serverevents.ServerEventsList
 import template.client.serverlogs.ServerLog
 import template.client.foos.FoosList
@@ -13,7 +12,6 @@ object Page {
   case object ServerEvents extends Page
   case object ServerLogs extends Page
   case object Foos extends Page
-  case object Todos extends Page
 }
 
 object AppRouter {
@@ -28,7 +26,6 @@ object AppRouter {
       | staticRoute("/#server-events", ServerEvents) ~> render(ServerEventsList.component())
       | staticRoute("/#server-logs", ServerLogs) ~> render(ServerLog.component())
       | staticRoute("/#foos", Foos) ~> render(FoosList.component())
-      | staticRoute("/#todos", Todos) ~> render(TodoList.component())
     )
       .notFound(redirectToPage(Home)(Redirect.Replace))
       .renderWith(Layout)

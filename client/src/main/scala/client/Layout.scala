@@ -99,7 +99,6 @@ object Layout extends ((RouterCtl[Page], Resolution[Page]) => ReactElement) {
       <.div(LayoutStyle.main,
         <.nav(LayoutStyle.nav,
           <.ul(
-            navItem(ctl, r, Page.Todos, "To Dos"),
             navItem(ctl, r, Page.ServerEvents, "Server Events"),
             navItem(ctl, r, Page.ServerLogs, "Server Logs"),
             navItem(ctl, r, Page.Foos, "Foos")
