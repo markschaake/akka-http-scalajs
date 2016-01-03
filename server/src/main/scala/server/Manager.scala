@@ -17,17 +17,19 @@ class Manager extends Actor with ActorLogging {
   var subscribers: Set[ActorRef] = Set()
   var eventCount = 0
 
-  override def preStart() {
+  override def preStart(): Unit = {
     import scala.concurrent.duration._
     import context.dispatcher
-    context.system.scheduler.schedule(1.second, 5.second) {
-      if (eventCount % 2 == 0) {
-        self ! ServerEvent.FooUpdated(s"${eventCount}")
-      } else {
-        self ! ServerEvent.FooDeleted(s"${eventCount - 1}")
-      }
+    context.system.scheduler.schedule(3.second, 5.second) {
+      val event =
+        if (eventCount % 2 == 0) {
+          ServerEvent.FooUpdated(s"${eventCount}")
+        } else {
+          ServerEvent.FooDeleted(s"${eventCount - 1}")
+        }
       eventCount += 1
-      log.info("FooEvent published")
+      self ! event
+      log.info(s"Published: $event")
     }
     context.system.scheduler.schedule(1.seconds, 2.seconds) {
       self ! GetSystemStatus

@@ -15,14 +15,16 @@ object Environment {
 }
 
 trait Context {
-  def system: ActorSystem
+  val system: ActorSystem
   def materializer: ActorMaterializer
   def manager: ActorRef
+  def fooRepository: FooRepository
   def environment: Environment
 }
 
-case class ProdContext(system: ActorSystem, materializer: ActorMaterializer) extends Context {
+class ProdContext(implicit val system: ActorSystem, val materializer: ActorMaterializer) extends Context {
   val config = system.settings.config
   override val manager: ActorRef = system.actorOf(Manager.props)
+  override val fooRepository: FooRepository = new FooRepository
   override lazy val environment: Environment = Environment.fromString(config.getString("server.env"))
 }
